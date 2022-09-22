@@ -1,4 +1,4 @@
-import { div, p, section } from '../framework/dom-creators.ts'
+import { div, p, section } from '../framework/dom-creators'
 
 export function hero({ title, subTitle }) {
   const $heroSection = section('hero is-link')

@@ -1,9 +1,9 @@
 function createElement(tagName = 'div', className = ''): HTMLElement {
-  const element = document.createElement(tagName)
-  if (className.length) {
-    element.className = className
-  }
-  return element
+    const element = document.createElement(tagName)
+    if (className.length) {
+        element.className = className
+    }
+    return element
 }
 
 export const p = (className = '') => createElement('p', className)
