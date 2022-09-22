@@ -1,4 +1,4 @@
-function createElement(tagName = 'div', className = '') {
+function createElement(tagName = 'div', className = ''): HTMLElement {
   const element = document.createElement(tagName)
   if (className.length) {
     element.className = className

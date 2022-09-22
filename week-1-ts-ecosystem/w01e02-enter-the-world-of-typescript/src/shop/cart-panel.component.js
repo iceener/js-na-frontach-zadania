@@ -1,4 +1,4 @@
-import { article, p } from '../framework/dom-creators.js'
+import { article, p } from '../framework/dom-creators.ts'
 import { cartItemSum } from './cart-item-sum.component.js'
 import { cartItem } from './cart-item.component.js'
 
