@@ -6,7 +6,10 @@
  *
  * */
 
-const user: any = {
+import { hasAddress, hasGivenAge } from './helpers/user.helpers'
+import { User } from './model/user.model'
+
+const user: User = {
   name: 'Andy',
   age: 30,
   email: 'andy@mail-me-tommorow.com',
@@ -16,15 +19,8 @@ const user: any = {
   },
 }
 
-function hasAddress(user: any): any {
-  return Boolean(user.address)
-}
 
-function hasGivenAge(requiredAge: any): any {
-  return (user: any): any => user.age >= requiredAge
-}
+const isAdult = hasGivenAge(18, user)
 
-const isAdult = hasGivenAge(18)
-
-console.log(`User ${user.name} is ${isAdult(user) ? 'adult' : 'minor'}`)
+console.log(`User ${user.name} is ${isAdult ? 'adult' : 'minor'}`)
 console.log(`and has${hasAddress(user) ? '' : ' no'} address`)
