@@ -1,11 +1,13 @@
-import { div } from '../framework/dom-creators.js'
+import { div } from '../framework/dom-creators'
+import {Product} from "../types/product";
 
-export function cartItem({ name, amount, unit, price }) {
+
+export function cartItem({ name, amount, unit, price }:Product) {
   const $panelBlock = div('panel-block')
   const $name = div()
   $name.textContent = name
   const $amount = div('ml-auto')
-  $amount.textContent = amount
+  $amount.textContent = amount.toString()
   const $unit = div('tag')
   $unit.textContent = unit
   const $price = div('ml-4')
