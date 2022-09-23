@@ -1,6 +1,11 @@
-import { div, p, section } from '../framework/dom-creators.js'
+import { div, p, section } from '../framework/dom-creators'
 
-export function hero({ title, subTitle }) {
+type HeroParams = {
+  title: string;
+  subTitle: string;
+}
+
+export function hero({ title, subTitle }: HeroParams) {
   const $heroSection = section('hero is-link')
   const $heroBody = div('hero-body')
   const $title = p('title')
