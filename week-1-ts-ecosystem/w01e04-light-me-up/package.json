@@ -1,5 +1,13 @@
 {
   "name": "w01e04-light-me-up",
+  "author": "Dariusz Gala",
   "version": "1.0.0",
-  "dependencies": {}
+  "scripts": {
+    "exercise": "ts-node src/exercise${NO}.ts",
+    "exercise:1": "NO=1 npm run exercise",
+    "exercise:2": "NO=2 npm run exercise"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1"
+  }
 }
