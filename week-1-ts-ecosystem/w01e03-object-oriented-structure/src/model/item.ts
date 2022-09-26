@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { Cart, CartType } from "./cart";
+import { CartType } from "./cart";
 
 type Currency = "PLN";
 type Unit = "kg";

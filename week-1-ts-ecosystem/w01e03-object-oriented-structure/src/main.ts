@@ -23,3 +23,5 @@ const item1 = new Item(
 );
 newCart.add(item1);
 console.log(newCart.getItems());
+
+//TODO add tests and figure out problems with imports eslint
