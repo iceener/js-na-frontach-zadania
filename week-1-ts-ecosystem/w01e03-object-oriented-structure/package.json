@@ -1,5 +1,23 @@
 {
   "name": "w01e03-object-oriented-structure",
   "version": "1.0.0",
-  "scripts": {}
+  "scripts": {
+    "dev": "nodemon src/main.ts",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.3",
+    "vite": "^3.1.3",
+    "vite-plugin-eslint": "^1.8.1"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
+  }
 }
