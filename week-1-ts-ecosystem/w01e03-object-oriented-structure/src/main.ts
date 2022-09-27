@@ -9,3 +9,17 @@
  * Przygotuj koszyki dla każdego rodzaju produktów.
  * - po prostu: wykaż, że przygotowana logika i modele danych — działają :)
  * */
+import { CartType } from "./model/cart";
+import CartItem from "./model/item";
+
+const testCartType: CartType = "BUY_NOW";
+
+const testItem = new CartItem(
+  "Test Product",
+  1,
+  "piece",
+  { value: 55, currency: "PLN" },
+  testCartType
+);
+
+console.log(testItem);
