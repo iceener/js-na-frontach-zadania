@@ -9,19 +9,17 @@
  * Przygotuj koszyki dla każdego rodzaju produktów.
  * - po prostu: wykaż, że przygotowana logika i modele danych — działają :)
  * */
-import { Cart } from "./model/cart";
-import Item from "./model/item";
+import { CartType } from "./model/cart";
+import CartItem from "./model/item";
 
-const newCart = new Cart("BUY_NOW");
-const item1 = new Item(
-  "Test Item",
+const testCartType: CartType = "BUY_NOW";
+
+const testItem = new CartItem(
+  "Test Product",
   1,
-  1,
-  "kg",
+  "piece",
   { value: 55, currency: "PLN" },
-  "BUY_NOW"
+  testCartType
 );
-newCart.add(item1);
-console.log(newCart.getItems());
 
-//TODO add tests and figure out problems with imports eslint
+console.log(testItem);

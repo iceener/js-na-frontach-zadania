@@ -3,3 +3,4 @@ dist/
 .prettierrc.json,
 .eslintrc.js,
 env.d.ts
+*.test.ts

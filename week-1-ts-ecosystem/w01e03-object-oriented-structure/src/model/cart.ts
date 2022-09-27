@@ -1,15 +1,20 @@
-import Item from "./item";
+import CartItem from "./item";
 
+/**
+ * Allowed types of cart.
+ */
 export type CartType = "BUY_NOW" | "AUCTION" | "FREE";
 
+/**
+ * Cart class.
+ */
 export class Cart {
-  #items: Map<string, Item> = new Map();
-  constructor(public type: CartType) {}
+  #items: Map<string, CartItem> = new Map();
+  constructor(public type: CartType) {
+    this.type = type;
+  }
 
-  add(item: Item) {
-    if (!(item instanceof Item)) {
-      this.throwCartItemTypeError(item);
-    }
+  add(item: CartItem) {
     if (item.type !== this.type) {
       this.throwCartTypeError(item);
     }
@@ -21,7 +26,7 @@ export class Cart {
     return this.#items.get(itemId);
   }
 
-  updateItem(item: Item) {
+  updateItem(item: CartItem) {
     return this.#items.set(item.id, item);
   }
 
@@ -41,14 +46,14 @@ export class Cart {
     return this.getItems().reduce((a, b) => a + b.price.value * b.count, 0);
   }
 
-  private throwCartTypeError(item: Item): void {
+  private throwCartTypeError(item: CartItem): void {
     throw new Error(
       `You are trying to add the wrong product type to the cart.
             This cart is type ${this.type} and product has type: ${item.type}`
     );
   }
 
-  private throwCartItemTypeError(item: Item): void {
+  private throwCartItemTypeError(item: CartItem): void {
     throw new Error(
       `You are trying to add into the cart object type ${item.type} which one is not CartItem instance.
             Create a product with CartItem class`
