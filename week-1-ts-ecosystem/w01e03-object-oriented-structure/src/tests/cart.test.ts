@@ -1,14 +1,6 @@
 import { Cart } from "../model/cart";
 import Item from "../model/item";
 
-const testCar = new Item(
-  "Car",
-  5,
-  "kg",
-  { value: 55, currency: "PLN" },
-  "BUY_NOW"
-);
-
 const testPuppet = new Item(
   "Puppet",
   2,
@@ -25,15 +17,27 @@ const testBall = new Item(
   "BUY_NOW"
 );
 
-// describe("cart", () => {
-//   it("generates cart instance properly and allows adding items w correct type", () => {
-//     const cart = new Cart("AUCTION");
-//     console.log(cart);
-//     expect(cart).toHaveProperty("type");
-//
-//     // expect(() => cart.add(testCar)).toThrowError();
-//     console.log(testPuppet);
-//     // cart.add(testPuppet);
-//     // expect(() => cart.getItems()).toHaveLength(1);
-//   });
-// });
+describe("cart", () => {
+  it("generates cart instance properly and allows adding items w correct type", () => {
+    const cart = new Cart("AUCTION");
+    expect(cart).toHaveProperty("type");
+    expect(cart.type).toBe("AUCTION");
+    cart.add(testPuppet);
+    expect(cart.getItemsCount()).toBe(1);
+  });
+
+  it("generates cart instance properly and dont allow adding items w uncorrect type", () => {
+    const cart = new Cart("BUY_NOW");
+    expect(() => cart.add(testPuppet)).toThrowError();
+    cart.add(testBall);
+    expect(cart.getItemsCount()).toBe(1);
+  });
+
+  it("allows updating items in cart", () => {
+    const cart = new Cart("BUY_NOW");
+    cart.add(testBall);
+    expect(cart.getItem(testBall.id)!.count).toBe(199);
+    cart.updateItem({ ...testBall, count: 100 });
+    expect(cart.getItem(testBall.id)!.count).toBe(100);
+  });
+});

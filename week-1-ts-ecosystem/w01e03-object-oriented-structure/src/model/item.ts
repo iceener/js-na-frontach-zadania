@@ -12,12 +12,12 @@ interface Price {
 /**
  * Model for shop item.
  */
-// interface Item {
-//   name: string;
-//   unit: Unit;
-//   price: Price;
-//   type: CartType;
-// }
+interface Item {
+  name: string;
+  unit: Unit;
+  price: Price;
+  type: CartType;
+}
 
 /**
  * Class for CartItem
@@ -27,7 +27,7 @@ interface Price {
  * @param {Price} price - information about product price
  * @param {CartType} type - information about cart type for product
  */
-class CartItem {
+class CartItem implements Item {
   id: string;
   constructor(
     public name: string,
