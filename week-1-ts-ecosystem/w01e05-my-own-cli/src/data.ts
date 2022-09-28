@@ -19,7 +19,7 @@ export const TypeQuestions = [
     },
     {
         type: "toggle",
-        name: 'ShouldGenerateData',
+        name: 'generateFakeData',
         message: `Should I Generate a product with fictitious data?`,
         initial: true,
         active: 'yes',
@@ -45,7 +45,7 @@ export const generateQuestion = (Name: string) => {
             message: `Please, give me price of Product :`
         },
     ]
-    const loopQuestion = {
+     const loopQuestion = {
         type: 'toggle',
         name: 'loopAnswer',
         message: `${Name}, do you want Continue or Left ?`,
@@ -53,12 +53,10 @@ export const generateQuestion = (Name: string) => {
         active: 'Continue',
         inactive: 'Left'
     }
-
     return {questionsII, loopQuestion}
 }
 
-export const initializeData = {
+export const initializeData: ObjectData = {
     buyNow: [], auctions: [], forFree: [],
 }
-
-export const LOOP_LENGTH = 3
+export const LOOP_LENGTH = 8

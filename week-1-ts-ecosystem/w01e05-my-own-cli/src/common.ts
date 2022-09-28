@@ -1,22 +1,21 @@
 const prompts = require(("prompts"))
-import {Key, ObjectData} from "./type";
+import { faker } from '@faker-js/faker';
+import {Key, ObjectData, ProductType} from "./type";
 import {writeFileSync} from  "fs"
 import chalk from "chalk";
 import figlet, { Options} from "figlet";
-import {generateQuestion, initializeData, LOOP_LENGTH, questionName, TypeQuestions} from "./data";
+import {generateQuestion, initializeData, LOOP_LENGTH, TypeQuestions,} from "./data";
 
-export const   createJSONFile  = async (data:ObjectData) => {
+export const createJSONFile  = async (data:ObjectData) => {
     const file = "cart-items.json"
   const path =`./persistent-data/${file}`
     const JSONResponse = JSON.stringify(data)
-    try {
-        console.log("JSON response",data)
-  await  writeFileSync(path,JSONResponse)
-        textMessage(`Data written successfully to ${file}`,"blue")
-    } catch (err) {
-        textMessage('An error has occurred ')
-        console.log("Error",err);
-    }
+        try {
+            await writeFileSync(path, JSONResponse)
+            return textMessage(`Data written successfully to ${file}`, "blue")
+        } catch (err) {
+            return textMessage('An error has occurred ')
+        }
 }
 
 export const textMessage = (text:string, blue?:string) => {
@@ -34,30 +33,62 @@ export const textMessage = (text:string, blue?:string) => {
 }
 
 export const onSubmit = (prompt: any ,answer: string) => {
-    if(prompt.type === 'text') textMessage(`Nice to meet you ${answer}`,"blue")
+    if (prompt.type === 'text') textMessage(`Nice to meet you ${answer}`, "blue")
 }
 
-export  const generateMyData = async (Name:string)=> {
-     let prepareCartData: ObjectData = initializeData
-    const {questionsII, loopQuestion} = generateQuestion(Name)
+const createRandomUser = (): ProductType => {
+    return {
+        id:  faker.datatype.uuid(),
+        name: faker.commerce.productName(),
+        amount: Number(faker.random.numeric()),
+        price:  faker.commerce.price(),
 
+    };
+}
+
+const createSchemaData = async (Type: Key,userName: string) => {
+    let prepareCartData: ObjectData = initializeData
+    const {questionsII} = generateQuestion(userName)
+    const { productName, productAmount, productPrice} =  await prompts(questionsII)
+    const newProduct = {
+        id: faker.datatype.uuid(),
+        name: productName,
+        amount: productAmount,
+        price: productPrice,
+    }
+
+    prepareCartData[Type as Key].push(newProduct)
+    return prepareCartData
+}
+
+
+export const generateFakeData = (Type: Key, amount: number) => {
+    const shopCartData: ObjectData = initializeData
+    Array.from({ length: amount }).forEach(() => {
+        shopCartData[Type].push(createRandomUser());
+    });
+    return shopCartData
+}
+
+export  const generateMyData = async (userName:string)=> {
     for (let i = 0; i <= LOOP_LENGTH; i++) {
-        const {ShouldGenerateData,Type} = await prompts(TypeQuestions)
-        if( ShouldGenerateData) {
-            textMessage((`See you Soon ${Name}`))
-            return null
+        const {generateFakeData,Type} = await prompts(TypeQuestions)
+        if( generateFakeData) {
+            return  generateFakeData(Type,3)
         }
-        const { productName, productAmount, productPrice} = await prompts(questionsII)
-        const newProduct = {
-            id: Number(String(Math.random() + i).split('.')[1]),
-            name: productName,
-            amount: productAmount,
-            price: productPrice,
-        }
-        prepareCartData[Type as Key].push(newProduct)
-        const {loopAnswer} = await prompts(loopQuestion)
-        if(!loopAnswer) return prepareCartData
-
+        await createSchemaData(Type, userName)
 
     }
+}
+
+export const Avada_Kedavra = async (Name: string) => {
+    const prepareCartData = await generateMyData(Name)
+    if(!prepareCartData) return textMessage((`See you Soon ${Name}`),"blue")
+    await createJSONFile(prepareCartData)
+    const {loopQuestion} = generateQuestion(Name)
+    const  {loopAnswer} = await prompts(loopQuestion)
+    if(!loopAnswer) return textMessage((`See you Soon ${Name}`),"blue")
+
+    //Rekurencja, rekursja (z łac. recurrere, przybiec z powrotem)
+    await Avada_Kedavra(Name)
 }

@@ -9,32 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const chalk = require('chalk');
+Object.defineProperty(exports, "__esModule", { value: true });
+const common_1 = require("./common");
+const data_1 = require("./data");
 const clear = require('clear');
-const figlet = require('figlet');
 const prompts = require('prompts');
-const path = require('path');
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    const questions = [
-        {
-            type: 'text',
-            name: 'Name',
-            message: `What's your name ?`
-        },
-        {
-            type: 'multiselect',
-            name: 'Type',
-            message: "What product would you like to add ?",
-            choices: [
-                { title: 'Kup Teraz - buyNow', value: 'BUY' },
-                { title: 'Za darmo - forFree', value: 'FREE' },
-                { title: 'Aukcja - auction', value: 'AUCTION' }
-            ],
-        }
-    ];
-    const onSubmit = (prompt, answer) => console.log(` ${chalk.red(figlet.textSync(`Nice to meet you ${answer} :)`, { horizontalLayout: "full" }))} `);
+const Recurection = (Name) => __awaiter(void 0, void 0, void 0, function* () {
+    const prepareCartData = yield (0, common_1.generateMyData)(Name);
+    if (!prepareCartData)
+        return (0, common_1.textMessage)((`See you Soon ${Name}`), "blue");
+    yield (0, common_1.createJSONFile)(prepareCartData);
+    const { loopQuestion } = (0, data_1.generateQuestion)(Name);
+    const { loopAnswer } = yield prompts(loopQuestion);
+    if (!loopAnswer)
+        return (0, common_1.textMessage)((`See you Soon ${Name}`), "blue");
+    yield Recurection(Name);
+});
+const lets_play_the_game = () => __awaiter(void 0, void 0, void 0, function* () {
     clear();
-    console.log(chalk.red(figlet.textSync("Welcome in Drago CLI", { horizontalLayout: "full" })));
-    const response = yield prompts(questions, { onSubmit });
-    console.log("response", response);
-}))();
+    (0, common_1.textMessage)(`Welcome in Drago CLI `);
+    const { Name } = yield prompts(data_1.questionName, { onSubmit: common_1.onSubmit });
+    yield Recurection(Name);
+});
+lets_play_the_game().then((res) => {
+    if (res)
+        console.log(res);
+}).catch((err) => console.log(err));

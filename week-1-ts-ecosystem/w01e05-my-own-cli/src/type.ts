@@ -1,6 +1,6 @@
 export type Key =  "buyNow" | "forFree" | "auctions"
 export type  ProductType  = {
-    id:  number,
+    id: string,
     name: string,
     amount: number,
     price:  string | null

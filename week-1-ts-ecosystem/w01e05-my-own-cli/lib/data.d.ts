@@ -1,3 +1,4 @@
+import { ObjectData } from "./type";
 export declare const questionName: {
     type: string;
     name: string;
@@ -38,9 +39,5 @@ export declare const generateQuestion: (Name: string) => {
         inactive: string;
     };
 };
-export declare const initializeData: {
-    buyNow: never[];
-    auctions: never[];
-    forFree: never[];
-};
+export declare const initializeData: ObjectData;
 export declare const LOOP_LENGTH = 3;
