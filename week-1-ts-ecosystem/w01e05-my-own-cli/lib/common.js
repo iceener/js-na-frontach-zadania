@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.generateMyData = exports.generateFakeData = exports.onSubmit = exports.textMessage = exports.createJSONFile = void 0;
+exports.Avada_Kedavra = exports.generateMyData = exports.giveMeFakeData = exports.onSubmit = exports.textMessage = exports.createJSONFile = void 0;
 const prompts = require(("prompts"));
 const faker_1 = require("@faker-js/faker");
 const fs_1 = require("fs");
@@ -47,42 +47,56 @@ const onSubmit = (prompt, answer) => {
         (0, exports.textMessage)(`Nice to meet you ${answer}`, "blue");
 };
 exports.onSubmit = onSubmit;
-const createRandomUser = () => {
+const createRandomUser = (Type) => {
     return {
         id: faker_1.faker.datatype.uuid(),
         name: faker_1.faker.commerce.productName(),
         amount: Number(faker_1.faker.random.numeric()),
-        price: faker_1.faker.commerce.price(),
+        price: Type === "forFree" ? null : faker_1.faker.commerce.price(),
     };
 };
-const generateFakeData = (Type, amount) => {
+const createSchemaData = (Type, userName) => __awaiter(void 0, void 0, void 0, function* () {
+    let prepareCartData = data_1.initializeData;
+    const { questionsII } = (0, data_1.generateQuestion)(userName);
+    const { productName, productAmount, productPrice } = yield prompts(questionsII);
+    const newProduct = {
+        id: faker_1.faker.datatype.uuid(),
+        name: productName,
+        amount: productAmount,
+        price: productPrice,
+    };
+    prepareCartData[Type].push(newProduct);
+    return prepareCartData;
+});
+const giveMeFakeData = (Type, amount) => {
     const shopCartData = data_1.initializeData;
     Array.from({ length: amount }).forEach(() => {
-        shopCartData[Type].push(createRandomUser());
+        shopCartData[Type].push(createRandomUser(Type));
     });
     return shopCartData;
 };
-exports.generateFakeData = generateFakeData;
-const generateMyData = (Name) => __awaiter(void 0, void 0, void 0, function* () {
-    let prepareCartData = data_1.initializeData;
-    const { questionsII, loopQuestion } = (0, data_1.generateQuestion)(Name);
+exports.giveMeFakeData = giveMeFakeData;
+const generateMyData = (userName) => __awaiter(void 0, void 0, void 0, function* () {
     for (let i = 0; i <= data_1.LOOP_LENGTH; i++) {
-        const { ShouldGenerateData, Type } = yield prompts(data_1.TypeQuestions);
-        if (ShouldGenerateData) {
-            return (0, exports.generateFakeData)(Type, 3);
+        const { generateFakeData, Type } = yield prompts(data_1.TypeQuestions);
+        if (generateFakeData) {
+            const { amountRecords } = yield prompts(data_1.amoutFakeDataQuestion);
+            return (0, exports.giveMeFakeData)(Type, amountRecords);
         }
-        const { productName, productAmount, productPrice } = yield prompts(questionsII);
-        const newProduct = {
-            id: faker_1.faker.datatype.uuid(),
-            name: productName,
-            amount: productAmount,
-            price: productPrice,
-        };
-        prepareCartData[Type].push(newProduct);
-        return prepareCartData;
-        // const {loopAnswer} = await prompts(loopQuestion)
-        // if(!loopAnswer) return prepareCartData
-        // console.log("ELEGANCKO MORDO !")
+        yield createSchemaData(Type, userName);
     }
 });
 exports.generateMyData = generateMyData;
+const Avada_Kedavra = (Name) => __awaiter(void 0, void 0, void 0, function* () {
+    const { loopQuestion } = (0, data_1.generateQuestion)(Name);
+    const prepareCartData = yield (0, exports.generateMyData)(Name);
+    if (!prepareCartData)
+        return (0, exports.textMessage)((`See you Soon ${Name}`), "blue");
+    yield (0, exports.createJSONFile)(prepareCartData);
+    const { loopAnswer } = yield prompts(loopQuestion);
+    if (!loopAnswer)
+        return (0, exports.textMessage)((`See you Soon ${Name}`), "blue");
+    //Rekurencja, rekursja (z łac. recurrere, przybiec z powrotem)
+    yield (0, exports.Avada_Kedavra)(Name);
+});
+exports.Avada_Kedavra = Avada_Kedavra;

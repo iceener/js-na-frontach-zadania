@@ -27,6 +27,14 @@ export const TypeQuestions = [
     },
 ]
 
+export const  amoutFakeDataQuestion = [
+    {
+        type: "number",
+        name: 'amountRecords',
+        message: `How many Fake records do you need ?`,
+    },
+]
+
 export const generateQuestion = (Name: string) => {
     const questionsII = [
         {

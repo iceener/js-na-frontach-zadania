@@ -4,7 +4,7 @@ import {Key, ObjectData, ProductType} from "./type";
 import {writeFileSync} from  "fs"
 import chalk from "chalk";
 import figlet, { Options} from "figlet";
-import {generateQuestion, initializeData, LOOP_LENGTH, TypeQuestions,} from "./data";
+import {amoutFakeDataQuestion, generateQuestion, initializeData, LOOP_LENGTH, TypeQuestions,} from "./data";
 
 export const createJSONFile  = async (data:ObjectData) => {
     const file = "cart-items.json"
@@ -17,7 +17,6 @@ export const createJSONFile  = async (data:ObjectData) => {
             return textMessage('An error has occurred ')
         }
 }
-
 export const textMessage = (text:string, blue?:string) => {
     const fontOptions: Options = {
         font: "Mini",
@@ -36,12 +35,12 @@ export const onSubmit = (prompt: any ,answer: string) => {
     if (prompt.type === 'text') textMessage(`Nice to meet you ${answer}`, "blue")
 }
 
-const createRandomUser = (): ProductType => {
+const createRandomUser = (Type: Key): ProductType => {
     return {
         id:  faker.datatype.uuid(),
         name: faker.commerce.productName(),
         amount: Number(faker.random.numeric()),
-        price:  faker.commerce.price(),
+        price: Type === "forFree" ? null :  faker.commerce.price(),
 
     };
 }
@@ -56,16 +55,14 @@ const createSchemaData = async (Type: Key,userName: string) => {
         amount: productAmount,
         price: productPrice,
     }
-
     prepareCartData[Type as Key].push(newProduct)
     return prepareCartData
 }
 
-
-export const generateFakeData = (Type: Key, amount: number) => {
+export const giveMeFakeData = (Type: Key, amount: number) => {
     const shopCartData: ObjectData = initializeData
     Array.from({ length: amount }).forEach(() => {
-        shopCartData[Type].push(createRandomUser());
+        shopCartData[Type].push(createRandomUser(Type));
     });
     return shopCartData
 }
@@ -74,7 +71,8 @@ export  const generateMyData = async (userName:string)=> {
     for (let i = 0; i <= LOOP_LENGTH; i++) {
         const {generateFakeData,Type} = await prompts(TypeQuestions)
         if( generateFakeData) {
-            return  generateFakeData(Type,3)
+            const {amountRecords} = await prompts(amoutFakeDataQuestion)
+            return  giveMeFakeData(Type,amountRecords)
         }
         await createSchemaData(Type, userName)
 
@@ -82,11 +80,13 @@ export  const generateMyData = async (userName:string)=> {
 }
 
 export const Avada_Kedavra = async (Name: string) => {
+    const {loopQuestion} = generateQuestion(Name)
     const prepareCartData = await generateMyData(Name)
     if(!prepareCartData) return textMessage((`See you Soon ${Name}`),"blue")
+
     await createJSONFile(prepareCartData)
-    const {loopQuestion} = generateQuestion(Name)
-    const  {loopAnswer} = await prompts(loopQuestion)
+
+    const {loopAnswer} = await prompts(loopQuestion)
     if(!loopAnswer) return textMessage((`See you Soon ${Name}`),"blue")
 
     //Rekurencja, rekursja (z łac. recurrere, przybiec z powrotem)

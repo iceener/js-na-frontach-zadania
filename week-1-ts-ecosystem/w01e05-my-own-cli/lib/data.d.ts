@@ -24,6 +24,11 @@ export declare const TypeQuestions: ({
     inactive: string;
     choices?: undefined;
 })[];
+export declare const amoutFakeDataQuestion: {
+    type: string;
+    name: string;
+    message: string;
+}[];
 export declare const generateQuestion: (Name: string) => {
     questionsII: {
         type: string;
@@ -40,4 +45,4 @@ export declare const generateQuestion: (Name: string) => {
     };
 };
 export declare const initializeData: ObjectData;
-export declare const LOOP_LENGTH = 3;
+export declare const LOOP_LENGTH = 8;

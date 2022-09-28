@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.TypeQuestions = exports.questionName = void 0;
+exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.amoutFakeDataQuestion = exports.TypeQuestions = exports.questionName = void 0;
 exports.questionName = {
     type: 'text',
     name: 'Name',
@@ -19,11 +19,18 @@ exports.TypeQuestions = [
     },
     {
         type: "toggle",
-        name: 'ShouldGenerateData',
+        name: 'generateFakeData',
         message: `Should I Generate a product with fictitious data?`,
         initial: true,
         active: 'yes',
         inactive: 'no'
+    },
+];
+exports.amoutFakeDataQuestion = [
+    {
+        type: "number",
+        name: 'amountRecords',
+        message: `How many Fake records do you need ?`,
     },
 ];
 const generateQuestion = (Name) => {
@@ -58,4 +65,4 @@ exports.generateQuestion = generateQuestion;
 exports.initializeData = {
     buyNow: [], auctions: [], forFree: [],
 };
-exports.LOOP_LENGTH = 3;
+exports.LOOP_LENGTH = 8;
