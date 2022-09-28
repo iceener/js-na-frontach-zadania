@@ -28,6 +28,8 @@ export declare const amoutFakeDataQuestion: {
     type: string;
     name: string;
     message: string;
+    min: number;
+    max: number;
 }[];
 export declare const generateQuestion: (Name: string) => {
     questionsII: {

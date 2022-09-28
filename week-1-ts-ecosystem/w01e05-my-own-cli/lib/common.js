@@ -55,7 +55,7 @@ const createRandomUser = (Type) => {
         price: Type === "forFree" ? null : faker_1.faker.commerce.price(),
     };
 };
-const createSchemaData = (Type, userName) => __awaiter(void 0, void 0, void 0, function* () {
+const generateMyRecord = (Type, userName) => __awaiter(void 0, void 0, void 0, function* () {
     let prepareCartData = data_1.initializeData;
     const { questionsII } = (0, data_1.generateQuestion)(userName);
     const { productName, productAmount, productPrice } = yield prompts(questionsII);
@@ -81,9 +81,15 @@ const generateMyData = (userName) => __awaiter(void 0, void 0, void 0, function*
         const { generateFakeData, Type } = yield prompts(data_1.TypeQuestions);
         if (generateFakeData) {
             const { amountRecords } = yield prompts(data_1.amoutFakeDataQuestion);
+            console.log("amountRecords", amountRecords);
+            if (!amountRecords)
+                return;
             return (0, exports.giveMeFakeData)(Type, amountRecords);
         }
-        yield createSchemaData(Type, userName);
+        const response = yield generateMyRecord(Type, userName);
+        if (response[Type].length) {
+            (0, exports.textMessage)(`You have been created your Record !`, "blue");
+        }
     }
 });
 exports.generateMyData = generateMyData;

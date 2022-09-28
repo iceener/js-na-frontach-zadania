@@ -40,12 +40,12 @@ const createRandomUser = (Type: Key): ProductType => {
         id:  faker.datatype.uuid(),
         name: faker.commerce.productName(),
         amount: Number(faker.random.numeric()),
-        price: Type === "forFree" ? null :  faker.commerce.price(),
+        price: Type === "forFree" ? null : faker.commerce.price(),
 
     };
 }
 
-const createSchemaData = async (Type: Key,userName: string) => {
+const generateMyRecord = async (Type: Key,userName: string) => {
     let prepareCartData: ObjectData = initializeData
     const {questionsII} = generateQuestion(userName)
     const { productName, productAmount, productPrice} =  await prompts(questionsII)
@@ -72,10 +72,13 @@ export  const generateMyData = async (userName:string)=> {
         const {generateFakeData,Type} = await prompts(TypeQuestions)
         if( generateFakeData) {
             const {amountRecords} = await prompts(amoutFakeDataQuestion)
+            if(!amountRecords) return
             return  giveMeFakeData(Type,amountRecords)
         }
-        await createSchemaData(Type, userName)
-
+        const response = await generateMyRecord(Type, userName)
+        if(response[Type as Key].length) {
+            textMessage(`You have been created your Record !`, "blue")
+        }
     }
 }
 

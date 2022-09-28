@@ -31,6 +31,8 @@ exports.amoutFakeDataQuestion = [
         type: "number",
         name: 'amountRecords',
         message: `How many Fake records do you need ?`,
+        min: 1,
+        max: 8
     },
 ];
 const generateQuestion = (Name) => {
