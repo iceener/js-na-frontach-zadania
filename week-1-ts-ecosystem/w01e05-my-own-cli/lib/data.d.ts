@@ -24,12 +24,20 @@ export declare const TypeQuestions: ({
     inactive: string;
     choices?: undefined;
 })[];
-export declare const amoutFakeDataQuestion: {
+export declare const amountFakeDataQuestion: {
     type: string;
     name: string;
     message: string;
     min: number;
     max: number;
+}[];
+export declare const deleteQuestion: {
+    type: string;
+    name: string;
+    message: string;
+    initial: boolean;
+    active: string;
+    inactive: string;
 }[];
 export declare const generateQuestion: (Name: string) => {
     questionsII: {

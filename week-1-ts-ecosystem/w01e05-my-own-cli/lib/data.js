@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.amoutFakeDataQuestion = exports.TypeQuestions = exports.questionName = void 0;
+exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.deleteQuestion = exports.amountFakeDataQuestion = exports.TypeQuestions = exports.questionName = void 0;
 exports.questionName = {
     type: 'text',
     name: 'Name',
@@ -26,13 +26,23 @@ exports.TypeQuestions = [
         inactive: 'no'
     },
 ];
-exports.amoutFakeDataQuestion = [
+exports.amountFakeDataQuestion = [
     {
         type: "number",
         name: 'amountRecords',
         message: `How many Fake records do you need ?`,
         min: 1,
         max: 8
+    },
+];
+exports.deleteQuestion = [
+    {
+        type: "toggle",
+        name: 'deleteData',
+        message: ` Do you want continue or delete your data ?`,
+        initial: true,
+        active: 'delete',
+        inactive: 'continue'
     },
 ];
 const generateQuestion = (Name) => {

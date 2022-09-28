@@ -1,6 +1,6 @@
 {
   "name": "drago_bjj",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "_~ \"Aplikacja do handlu\" strikes back 😱_",
   "main": "./lib/index.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "watch": "nodemon --watch src/**/*.ts --exec ts-node  src/index.ts",
-    "create": "npm run build && ts-node ./lib/index",
+    "demo": "npm run build && ts-node ./lib/index",
     "build": "tsc -p .",
     "refresh": "rm -rf ./node_modules ./package-locknp.json && npm install"
   },

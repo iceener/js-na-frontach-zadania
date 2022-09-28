@@ -1,5 +1,6 @@
 import { Key, ObjectData } from "./type";
 export declare const createJSONFile: (data: ObjectData) => Promise<void>;
+export declare const deleteDataFromFile: () => Promise<void>;
 export declare const textMessage: (text: string, blue?: string) => void;
 export declare const onSubmit: (prompt: any, answer: string) => void;
 export declare const giveMeFakeData: (Type: Key, amount: number) => ObjectData;

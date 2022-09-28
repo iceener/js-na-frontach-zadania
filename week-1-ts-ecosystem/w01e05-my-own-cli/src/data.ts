@@ -27,13 +27,24 @@ export const TypeQuestions = [
     },
 ]
 
-export const  amoutFakeDataQuestion = [
+export const  amountFakeDataQuestion = [
     {
         type: "number",
         name: 'amountRecords',
         message: `How many Fake records do you need ?`,
         min: 1,
         max: 8
+    },
+]
+
+export const deleteQuestion = [
+    {
+        type: "toggle",
+        name: 'deleteData',
+        message: ` Do you want continue or delete your data ?`,
+        initial: true,
+        active: 'delete',
+        inactive: 'continue'
     },
 ]
 

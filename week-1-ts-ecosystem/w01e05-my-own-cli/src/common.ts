@@ -1,14 +1,21 @@
 const prompts = require(("prompts"))
 import { faker } from '@faker-js/faker';
 import {Key, ObjectData, ProductType} from "./type";
-import {writeFileSync} from  "fs"
+import {writeFileSync, unlinkSync} from  "fs"
+
 import chalk from "chalk";
 import figlet, { Options} from "figlet";
-import {amoutFakeDataQuestion, generateQuestion, initializeData, LOOP_LENGTH, TypeQuestions,} from "./data";
+import {
+    amountFakeDataQuestion, deleteQuestion,
+    generateQuestion,
+    initializeData,
+    LOOP_LENGTH,
+    TypeQuestions,
+} from "./data";
+const file = "cart-items.json"
+const path =`./persistent-data/${file}`
 
 export const createJSONFile  = async (data:ObjectData) => {
-    const file = "cart-items.json"
-  const path =`./persistent-data/${file}`
     const JSONResponse = JSON.stringify(data)
         try {
             await writeFileSync(path, JSONResponse)
@@ -16,6 +23,16 @@ export const createJSONFile  = async (data:ObjectData) => {
         } catch (err) {
             return textMessage('An error has occurred ')
         }
+}
+
+export const deleteDataFromFile = async () => {
+    try {
+        await unlinkSync(path)
+        textMessage(`Your data has been deleted`)
+    }catch (err) {
+        textMessage(`Cant Delete your Data`)
+    }
+
 }
 export const textMessage = (text:string, blue?:string) => {
     const fontOptions: Options = {
@@ -71,7 +88,7 @@ export  const generateMyData = async (userName:string)=> {
     for (let i = 0; i <= LOOP_LENGTH; i++) {
         const {generateFakeData,Type} = await prompts(TypeQuestions)
         if( generateFakeData) {
-            const {amountRecords} = await prompts(amoutFakeDataQuestion)
+            const {amountRecords} = await prompts(amountFakeDataQuestion)
             if(!amountRecords) return
             return  giveMeFakeData(Type,amountRecords)
         }
@@ -91,7 +108,9 @@ export const Avada_Kedavra = async (Name: string) => {
 
     const {loopAnswer} = await prompts(loopQuestion)
     if(!loopAnswer) return textMessage((`See you Soon ${Name}`),"blue")
-
-    //Rekurencja, rekursja (z łac. recurrere, przybiec z powrotem)
+    const {deleteData} = await prompts(deleteQuestion)
+        if(deleteData) {
+            await deleteDataFromFile()
+        }
     await Avada_Kedavra(Name)
 }

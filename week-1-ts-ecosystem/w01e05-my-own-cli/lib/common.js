@@ -12,16 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Avada_Kedavra = exports.generateMyData = exports.giveMeFakeData = exports.onSubmit = exports.textMessage = exports.createJSONFile = void 0;
+exports.Avada_Kedavra = exports.generateMyData = exports.giveMeFakeData = exports.onSubmit = exports.textMessage = exports.deleteDataFromFile = exports.createJSONFile = void 0;
 const prompts = require(("prompts"));
 const faker_1 = require("@faker-js/faker");
 const fs_1 = require("fs");
 const chalk_1 = __importDefault(require("chalk"));
 const figlet_1 = __importDefault(require("figlet"));
 const data_1 = require("./data");
+const file = "cart-items.json";
+const path = `./persistent-data/${file}`;
 const createJSONFile = (data) => __awaiter(void 0, void 0, void 0, function* () {
-    const file = "cart-items.json";
-    const path = `./persistent-data/${file}`;
     const JSONResponse = JSON.stringify(data);
     try {
         yield (0, fs_1.writeFileSync)(path, JSONResponse);
@@ -32,6 +32,16 @@ const createJSONFile = (data) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.createJSONFile = createJSONFile;
+const deleteDataFromFile = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield (0, fs_1.unlinkSync)(path);
+        (0, exports.textMessage)(`Your data has been deleted`);
+    }
+    catch (err) {
+        (0, exports.textMessage)(`Cant Delete your Data`);
+    }
+});
+exports.deleteDataFromFile = deleteDataFromFile;
 const textMessage = (text, blue) => {
     const fontOptions = {
         font: "Mini",
@@ -80,8 +90,7 @@ const generateMyData = (userName) => __awaiter(void 0, void 0, void 0, function*
     for (let i = 0; i <= data_1.LOOP_LENGTH; i++) {
         const { generateFakeData, Type } = yield prompts(data_1.TypeQuestions);
         if (generateFakeData) {
-            const { amountRecords } = yield prompts(data_1.amoutFakeDataQuestion);
-            console.log("amountRecords", amountRecords);
+            const { amountRecords } = yield prompts(data_1.amountFakeDataQuestion);
             if (!amountRecords)
                 return;
             return (0, exports.giveMeFakeData)(Type, amountRecords);
@@ -102,7 +111,10 @@ const Avada_Kedavra = (Name) => __awaiter(void 0, void 0, void 0, function* () {
     const { loopAnswer } = yield prompts(loopQuestion);
     if (!loopAnswer)
         return (0, exports.textMessage)((`See you Soon ${Name}`), "blue");
-    //Rekurencja, rekursja (z łac. recurrere, przybiec z powrotem)
+    const { deleteData } = yield prompts(data_1.deleteQuestion);
+    if (deleteData) {
+        yield (0, exports.deleteDataFromFile)();
+    }
     yield (0, exports.Avada_Kedavra)(Name);
 });
 exports.Avada_Kedavra = Avada_Kedavra;
