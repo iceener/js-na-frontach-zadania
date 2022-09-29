@@ -1,5 +1,1 @@
-{
-  "forFree": [],
-  "buyNow": [],
-  "auctions": []
-}
+{"buyNow":[{"id":"dda1be7d-6d4b-4d00-9bac-051a5bda269d","type":"buyNow","name":"Practical Concrete Pants","amount":3,"price":95},{"id":"1c1212c1-0a83-49c9-be93-b4db4e64e75b","type":"buyNow","name":"Refined Fresh Car","amount":5,"price":161}],"auction":[],"forFree":[{"id":"64b64ded-f913-42e5-8b72-77b067245358","type":"forFree","name":"Luxurious Bronze Pizza","amount":3,"price":0},{"id":"17797a0d-9689-4531-b7f4-1510950dfab7","type":"forFree","name":"Gorgeous Cotton Fish","amount":7,"price":0}]}
