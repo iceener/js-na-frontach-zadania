@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.deleteQuestion = exports.amountFakeDataQuestion = exports.TypeQuestions = exports.questionName = void 0;
+exports.LOOP_LENGTH = exports.initializeData = exports.generateQuestion = exports.jsonDataQuestion = exports.choiceQuestion = exports.amountFakeDataQuestion = exports.TypeQuestions = exports.questionName = void 0;
 exports.questionName = {
     type: 'text',
     name: 'Name',
@@ -9,12 +9,13 @@ exports.questionName = {
 exports.TypeQuestions = [
     {
         type: 'select',
-        name: 'Type',
+        name: 'productType',
         message: "What product would you like to add ?",
         choices: [
             { title: 'Kup Teraz - buyNow', value: 'buyNow' },
             { title: 'Za darmo - forFree', value: 'forFree' },
-            { title: 'Aukcja - auction', value: 'auctions' }
+            { title: 'Aukcja - auction', value: 'auction' },
+            { title: 'I want come back to home', value: 'leave' },
         ],
     },
     {
@@ -35,14 +36,27 @@ exports.amountFakeDataQuestion = [
         max: 8
     },
 ];
-exports.deleteQuestion = [
+exports.choiceQuestion = [
     {
-        type: "toggle",
-        name: 'deleteData',
-        message: ` Do you want continue or delete your data ?`,
-        initial: true,
-        active: 'delete',
-        inactive: 'continue'
+        type: "select",
+        name: 'choice',
+        message: ` Do you want continue generate data / createJsonFile / Leave CLI ?`,
+        choices: [
+            { title: 'Create JSON File', value: 'json', selected: true },
+            { title: 'Continue Generate Product', value: 'generate' },
+            { title: 'Leave', value: 'leave', }
+        ]
+    },
+];
+exports.jsonDataQuestion = [
+    {
+        type: "select",
+        name: 'jsonDataChoice',
+        message: ` Do you want add this products to your Shop Card or Delete Data ?`,
+        choices: [
+            { title: 'Add to my ShopCard', value: 'add', selected: true },
+            { title: 'Delete my Json Data', value: 'delete' },
+        ]
     },
 ];
 const generateQuestion = (Name) => {
@@ -64,17 +78,19 @@ const generateQuestion = (Name) => {
         },
     ];
     const loopQuestion = {
-        type: 'toggle',
+        type: "multiselect",
         name: 'loopAnswer',
-        message: `${Name}, do you want Continue or Left ?`,
-        initial: true,
-        active: 'Continue',
-        inactive: 'Left'
+        message: `${Name}, What do you want to Do?`,
+        choices: [
+            { title: 'Add data to my shopCard', value: 'add', selected: true },
+            { title: 'Continue Generate Product', value: 'generate' },
+            { title: 'Leave', value: 'leave', }
+        ],
     };
     return { questionsII, loopQuestion };
 };
 exports.generateQuestion = generateQuestion;
 exports.initializeData = {
-    buyNow: [], auctions: [], forFree: [],
+    buyNow: [], auction: [], forFree: [],
 };
 exports.LOOP_LENGTH = 8;

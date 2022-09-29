@@ -31,13 +31,33 @@ export declare const amountFakeDataQuestion: {
     min: number;
     max: number;
 }[];
-export declare const deleteQuestion: {
+export declare const choiceQuestion: {
     type: string;
     name: string;
     message: string;
-    initial: boolean;
-    active: string;
-    inactive: string;
+    choices: ({
+        title: string;
+        value: string;
+        selected: boolean;
+    } | {
+        title: string;
+        value: string;
+        selected?: undefined;
+    })[];
+}[];
+export declare const jsonDataQuestion: {
+    type: string;
+    name: string;
+    message: string;
+    choices: ({
+        title: string;
+        value: string;
+        selected: boolean;
+    } | {
+        title: string;
+        value: string;
+        selected?: undefined;
+    })[];
 }[];
 export declare const generateQuestion: (Name: string) => {
     questionsII: {
@@ -49,9 +69,15 @@ export declare const generateQuestion: (Name: string) => {
         type: string;
         name: string;
         message: string;
-        initial: boolean;
-        active: string;
-        inactive: string;
+        choices: ({
+            title: string;
+            value: string;
+            selected: boolean;
+        } | {
+            title: string;
+            value: string;
+            selected?: undefined;
+        })[];
     };
 };
 export declare const initializeData: ObjectData;

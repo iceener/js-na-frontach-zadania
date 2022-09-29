@@ -1,9 +1,15 @@
-export type Key =  "buyNow" | "forFree" | "auctions"
+export enum  Key {
+    BUY_NOW = "buyNow",
+    GIVE_FOR_FREE = "forFree",
+    AUCTION ="auction"
+
+}
 export type  ProductType  = {
     id: string,
+    type: Key
     name: string,
     amount: number,
-    price:  string | null
+    price:  number
 }
 
  export type ObjectData = {

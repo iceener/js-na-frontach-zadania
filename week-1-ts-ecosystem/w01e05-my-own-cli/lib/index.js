@@ -19,10 +19,9 @@ const lets_play_the_game = () => __awaiter(void 0, void 0, void 0, function* () 
     clear();
     (0, common_1.textMessage)(`Welcome in Drago CLI `);
     const { Name } = yield prompts(data_1.questionName, { onSubmit: common_1.onSubmit });
-    yield (0, common_1.Avada_Kedavra)(Name);
+    const response = yield (0, common_1.Avada_Kedavra)(Name);
+    if (!response)
+        return (0, common_1.textMessage)(`See you Soon!`);
 });
 exports.lets_play_the_game = lets_play_the_game;
-(0, exports.lets_play_the_game)().then((res) => {
-    if (res)
-        console.log(res);
-}).catch((err) => console.log(err));
+(0, exports.lets_play_the_game)().catch((error) => console.log("ERROR", error));

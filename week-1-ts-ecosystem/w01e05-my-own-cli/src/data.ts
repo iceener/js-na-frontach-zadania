@@ -9,12 +9,13 @@ export const questionName = {
 export const TypeQuestions = [
     {
         type: 'select',
-        name: 'Type',
+        name: 'productType',
         message:"What product would you like to add ?",
         choices: [
             { title: 'Kup Teraz - buyNow', value: 'buyNow' },
             { title: 'Za darmo - forFree', value: 'forFree' },
-            { title: 'Aukcja - auction', value: 'auctions' }
+            { title: 'Aukcja - auction', value: 'auction' },
+            { title: 'I want come back to home', value: 'leave' },
         ],
     },
     {
@@ -37,14 +38,28 @@ export const  amountFakeDataQuestion = [
     },
 ]
 
-export const deleteQuestion = [
+export const choiceQuestion = [
     {
-        type: "toggle",
-        name: 'deleteData',
-        message: ` Do you want continue or delete your data ?`,
-        initial: true,
-        active: 'delete',
-        inactive: 'continue'
+        type: "select",
+        name: 'choice',
+        message: ` Do you want continue generate data / createJsonFile / Leave CLI ?`,
+         choices: [
+             { title: 'Create JSON File', value: 'json',selected: true },
+             { title: 'Continue Generate Product', value: 'generate'},
+             { title: 'Leave', value: 'leave', }
+         ]
+    },
+]
+
+export const jsonDataQuestion = [
+    {
+        type: "select",
+        name: 'jsonDataChoice',
+        message: ` Do you want add this products to your Shop Card or Delete Data ?`,
+        choices: [
+            { title: 'Add to my ShopCard', value: 'add',selected: true },
+            { title: 'Delete my Json Data', value: 'delete'},
+        ]
     },
 ]
 
@@ -67,17 +82,19 @@ export const generateQuestion = (Name: string) => {
         },
     ]
      const loopQuestion = {
-        type: 'toggle',
+        type:  "multiselect",
         name: 'loopAnswer',
-        message: `${Name}, do you want Continue or Left ?`,
-        initial: true,
-        active: 'Continue',
-        inactive: 'Left'
+        message: `${Name}, What do you want to Do?`,
+         choices: [
+             { title: 'Add data to my shopCard', value: 'add',selected: true },
+             { title: 'Continue Generate Product', value: 'generate'},
+             { title: 'Leave', value: 'leave', }
+         ],
     }
     return {questionsII, loopQuestion}
 }
 
 export const initializeData: ObjectData = {
-    buyNow: [], auctions: [], forFree: [],
+   buyNow : [], auction: [], forFree: [],
 }
 export const LOOP_LENGTH = 8
