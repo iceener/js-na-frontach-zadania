@@ -1,8 +1,10 @@
 import { div } from '../framework/dom-creators.js'
 import { cartPanel } from './cart-panel.component.js'
 import { hero } from './hero.component.js'
+import { CartItem } from './shop.model.js'
 
-const items = [
+
+const items: CartItem[] = [
   {
     name: 'Tomatoes',
     amount: 2,
