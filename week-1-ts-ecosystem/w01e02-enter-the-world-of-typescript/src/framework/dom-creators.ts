@@ -1,4 +1,4 @@
-function createElement(tagName = 'div', className = '') {
+function createElement<TTag extends keyof HTMLElementTagNameMap = 'div'>(tagName: TTag, className = ''): HTMLElementTagNameMap[TTag]  {
   const element = document.createElement(tagName)
   if (className.length) {
     element.className = className

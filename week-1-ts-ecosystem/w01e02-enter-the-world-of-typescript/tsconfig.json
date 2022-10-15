@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "types": [
+      "vitest/globals"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
