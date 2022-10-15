@@ -18,9 +18,6 @@
       "esnext",
       "dom"
     ],
-    "types": [
-      "vitest/globals"
-    ]
   },
   "include": [
     "src/**/*.ts"
