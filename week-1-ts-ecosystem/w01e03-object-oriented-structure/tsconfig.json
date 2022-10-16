@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "target": "esnext",
+    "module": "commonjs",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "noUnusedParameters": true,
+    "allowJs": false,
+    "moduleResolution": "node",
+    "strict": true,
+    "useDefineForClassFields": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "sourceMap": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": [
+      "esnext",
+      "DOM"
+    ]
+  },
+  "ts-node": {
+    "esm": true
+  },
+  "exclude": [
+    "./**/*.test.ts",
+  ]
+}

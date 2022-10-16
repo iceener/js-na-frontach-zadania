@@ -1,11 +1,21 @@
-/**
- * To tutaj mamy "START" programu.
- *
- * Przygotuj tutaj kawałek kodu potwierdzający poprawność działania koszyka.
- *
- * Np. Utwórz 3 różne koszyki — dodaj do nich różne produkty.
- * Potem wyświetl te produkty.
- * Wykaż, że koszyki mają różne produkty — inną ich ilość etc.
- * Przygotuj koszyki dla każdego rodzaju produktów.
- * - po prostu: wykaż, że przygotowana logika i modele danych — działają :)
- * */
+import { Product } from "./model/product";
+import { Cart } from "./model/cart";
+import { cartType } from "./constants";
+
+const auctionCart = new Cart(cartType.Auction);
+const buyNowCart = new Cart(cartType.BuyNow);
+const freeCart = new Cart(cartType.Free);
+
+const car = new Product("Ford", 10000, cartType.Auction);
+const phone = new Product("Samsung", 500, cartType.BuyNow);
+const laptop = new Product("MacBook", 1000, cartType.BuyNow);
+const pen = new Product("Pen", 0, cartType.Free);
+
+auctionCart.addProduct(car);
+buyNowCart.addProduct(phone);
+buyNowCart.addProduct(laptop);
+freeCart.addProduct(pen);
+
+console.log(auctionCart.getProducts());
+console.log(buyNowCart.getProducts());
+console.log(freeCart.getProducts());
