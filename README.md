@@ -25,3 +25,23 @@ Na tym repozytorium będą pojawiać się zadania do kursu [JS na Wszystkich Fro
 > Pamiętajcie o osobnych branch'ach i o ew. przygotowaniu do `/code-review`  
 > Powodzenia !
 
+### `w02` Tydzień II — Szeroka perspektywa web developmentu
+> Hej, odblokowaliśmy dla Was zadania z tygodnia #2.  
+> Są dostępne w folderze [/week-2-wide-perspective](week-2-wide-perspective)  
+> Pamiętajcie o osobnych branch'ach oraz aktualizacji swoich `/main` w forkach (_Sync_)! 
+> 
+> Powodzenia !
+
+### `w03` Tydzień III — Back-end na przykładzie NestJS
+> Hej, odblokowaliśmy dla Was zadania z tygodnia #3.  
+> Są dostępne w folderze [/week-3-nestjs-back-end](week-3-nestjs-back-end)  
+> Pamiętajcie o osobnych branch'ach oraz aktualizacji swoich `/main` w forkach (_Sync_)!
+>
+> Powodzenia !
+
+### `w04` Tydzień IV — Praca z bazami danych
+> Hej, odblokowaliśmy dla Was zadania z tygodnia #4.  
+> Są dostępne w folderze [/week-4-tests-and-persistence](week-4-tests-and-persistence)  
+> Pamiętajcie o osobnych branch'ach oraz aktualizacji swoich `/main` w forkach (_Sync_)!
+>
+> Powodzenia !
